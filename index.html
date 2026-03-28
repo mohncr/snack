@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Berka Lodge – Setti Fatma, Haut Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Lato:wght@300;400;700&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CSS VARIABLES - COULEURS HARMONISÉES
+   ========================================================= */
+:root {
+  --crimson: #B23C2A;      /* terracotta chaleureux */
+  --gold:    #E4B363;      /* ocre doré authentique */
+  --teal:    #2E7D6E;      /* vert sauge inspiré des vallées */
+  --sand:    #FEF7E9;      /* beige naturel */
+  --bark:    #3A2A28;      /* brun profond comme l'écorce */
+  --sky:     #B7D3D9;      /* bleu doux atlas */
+  --white:   #FFFFFF;
+  --off:     #FDF8F0;
+}
+
+/* =========================================================
+   RESET & BASE
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Lato', sans-serif;
+  background: var(--off);
+  color: var(--bark);
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+
+/* =========================================================
+   ICON STYLES
+   ========================================================= */
+.icon {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.icon-sm { width: 20px; height: 20px; }
+.icon-lg { width: 32px; height: 32px; }
+.icon-xl { width: 40px; height: 40px; }
+
+/* Couleurs harmonisées */
+.icon-mountain { stroke: #2E7D6E; }      /* teal harmonisé */
+.icon-hospitality { stroke: #E4B363; }   /* gold harmonisé */
+.icon-location { stroke: #B23C2A; }      /* terracotta */
+.icon-hiking { stroke: #E4B363; }        
+.icon-lunch { stroke: #E4B363; }         
+.icon-mule { stroke: #E4B363; }          
+.icon-cooking { stroke: #E4B363; }       
+.icon-phone { stroke: #2E7D6E; }         
+.icon-mail { stroke: #2E7D6E; }          
+.icon-pin { stroke: #2E7D6E; }           
+.icon-instagram { stroke: #2E7D6E; }     
+.icon-car { stroke: #2E7D6E; }           
+
+.icon-white { stroke: #FFFFFF; }
+.icon-gold { stroke: #E4B363; }
+
+.price-badge .icon,
+.price-badge-dark .icon {
+  stroke: currentColor;
+}
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+nav {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 4%;
+  background: rgba(10,10,10,.6);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(228,179,99,.25);
+  transition: background .4s;
+}
+nav.scrolled { background: rgba(10,10,10,.93); }
+/* Style pour le conteneur du logo */
+.nav-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 12px;
+    transition: all 0.3s ease;
+}
+
+/* Style pour l'image du logo */
+.nav-logo img {
+    height: 40px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+/* Effet hover sur l'image */
+.nav-logo:hover img {
+    transform: scale(1.05);
+}
+
+/* Style pour le texte du logo */
+.nav-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e2f; /* Vert foncé naturel */
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+/* Effet hover sur le texte */
+.nav-logo:hover .nav-brand {
+    color: #4a6b3f; /* Vert plus clair */
+}
+
+/* Version responsive pour mobile */
+@media (max-width: 768px) {
+    .nav-logo img {
+        height: 30px;
+    }
+    
+    .nav-brand {
+        font-size: 1.2rem;
+    }
+    
+    .nav-logo {
+        gap: 8px;
+    }
+}
+
+/* Si vous voulez un style plus moderne avec ombre et glassmorphism */
+.nav-logo.glassmorphism {
+    backdrop-filter: blur(10px);
+    padding: 8px 16px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Style pour navbar fixe */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-brand { color: var(--white); font-family: 'Cinzel', serif; font-size: 1rem; letter-spacing: .12em; }
+
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  color: rgba(255,255,255,.85); text-decoration: none;
+  font-size: .82rem; letter-spacing: .1em; text-transform: uppercase;
+  transition: color .3s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.hamburger span { display: block; width: 26px; height: 2px; background: var(--white); transition: .3s; }
+
+.mobile-menu {
+  display: none; position: fixed; inset: 0;
+  background: rgba(10,10,10,.97); z-index: 99;
+  flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  color: var(--white); text-decoration: none;
+  font-family: 'Cinzel', serif; font-size: 1.4rem; letter-spacing: .12em;
+  transition: color .3s;
+}
+.mobile-menu a:hover { color: var(--gold); }
+.mobile-close {
+  position: absolute; top: 1.5rem; right: 2rem;
+  background: none; border: none; color: var(--white);
+  font-size: 2rem; cursor: pointer;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+#hero {
+  position: relative; height: 100vh; min-height: 620px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(160deg, rgba(46,125,110,.75) 0%, rgba(178,60,42,.65) 55%, rgba(58,42,40,.85) 100%),
+    url('15.png') center/cover no-repeat;
+  transform: scale(1.06);
+  animation: heroPan 22s ease-in-out infinite alternate;
+}
+@keyframes heroPan {
+  from { transform: scale(1.06) translateX(0); }
+  to   { transform: scale(1.06) translateX(-2.5%); }
+}
+.hero-grain {
+  position: absolute; inset: 0; opacity: .04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.hero-content {
+  position: relative; text-align: center; color: var(--white); padding: 0 1.5rem;
+  animation: fadeUp .9s ease forwards;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-eyebrow {
+  display: inline-block; border: 1px solid var(--gold); color: var(--gold);
+  font-size: .72rem; letter-spacing: .28em; text-transform: uppercase;
+  padding: .38rem 1.3rem; margin-bottom: 1.6rem;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  line-height: 1.05; font-weight: 900; margin-bottom: 1.1rem;
+  text-shadow: 0 4px 28px rgba(0,0,0,.55);
+}
+.hero-title em { color: var(--gold); font-style: normal; }
+.hero-sub {
+  font-size: clamp(.95rem, 2vw, 1.2rem); font-weight: 300;
+  letter-spacing: .05em; max-width: 540px; margin: 0 auto 2.8rem; opacity: .9;
+  line-height: 1.7;
+}
+.hero-cta { display: inline-flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+.btn-primary {
+  background: var(--gold); color: var(--bark); text-decoration: none;
+  padding: .85rem 2.2rem; font-weight: 700; font-size: .85rem;
+  letter-spacing: .1em; text-transform: uppercase;
+  transition: .3s; border: 2px solid var(--gold);
+}
+.btn-primary:hover { background: transparent; color: var(--gold); }
+
+.btn-outline {
+  border: 2px solid rgba(255,255,255,.75); color: var(--white); text-decoration: none;
+  padding: .85rem 2.2rem; font-weight: 700; font-size: .85rem;
+  letter-spacing: .1em; text-transform: uppercase; transition: .3s;
+}
+.btn-outline:hover { background: var(--white); color: var(--bark); }
+
+.hero-scroll {
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: .5rem;
+  color: rgba(255,255,255,.55); font-size: .68rem; letter-spacing: .18em;
+  text-transform: uppercase; animation: scrollBounce 2.2s infinite;
+}
+@keyframes scrollBounce {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(9px); }
+}
+.hero-scroll::after {
+  content: ''; display: block; width: 1px; height: 44px;
+  background: linear-gradient(to bottom, rgba(255,255,255,.55), transparent);
+}
+
+/* =========================================================
+   SECTION HELPERS
+   ========================================================= */
+section { padding: 6rem 5%; }
+
+.section-label {
+  font-size: .7rem; letter-spacing: .3em; text-transform: uppercase; color: var(--gold);
+  display: flex; align-items: center; gap: .8rem; margin-bottom: .85rem;
+}
+.section-label::before, .section-label::after {
+  content: ''; flex: 1; max-width: 44px; height: 1px; background: var(--gold);
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900; line-height: 1.1; margin-bottom: 1rem;
+}
+.section-subtitle {
+  font-weight: 300; font-size: 1.05rem;
+  max-width: 580px; line-height: 1.8; color: #555;
+}
+.text-center { text-align: center; }
+.text-center .section-subtitle { margin: 0 auto; }
+.text-center .section-label { justify-content: center; }
+
+/* =========================================================
+   ABOUT
+   ========================================================= */
+#about {
+  background: var(--white);
+  position: relative;
+}
+.about-bg-img {
+  position: absolute;
+  inset: 0;
+  background:
+    url('40.png') center/cover no-repeat;
+  opacity: .08;
+  pointer-events: none;
+}
+.about-bg-img[data-loaded="false"] { background: none; }
+
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: center; margin-top: 4rem;
+  position: relative;
+}
+.about-img-stack { position: relative; }
+.about-img-main {
+  width: 100%; aspect-ratio: 4/5; object-fit: cover;
+  box-shadow: 0 20px 60px rgba(58,42,40,.18);
+}
+.about-img-badge {
+  position: absolute; bottom: -2rem; right: -2rem;
+  width: 130px; height: 130px; background: var(--crimson);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  color: var(--white); text-align: center; padding: 1rem;
+  clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+}
+.about-img-badge strong { font-family: 'Cinzel', serif; font-size: 1.6rem; color: var(--gold); }
+.about-img-badge span { font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; }
+
+.about-text .section-label { justify-content: flex-start; }
+.about-text .section-label::before { display: none; }
+
+.about-features { display: flex; flex-direction: column; gap: 1.3rem; margin-top: 2rem; }
+.feat-item { display: flex; gap: 1rem; align-items: flex-start; }
+.feat-icon { flex-shrink: 0; margin-top: .1rem; }
+.feat-item h4 { font-family: 'Playfair Display', serif; font-size: 1rem; margin-bottom: .25rem; }
+.feat-item p { font-size: .9rem; color: #666; line-height: 1.65; }
+
+/* =========================================================
+   SERVICES
+   ========================================================= */
+#services { background: var(--sand); }
+.services-intro { max-width: 700px; margin: 0 auto 4rem; }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+.service-card {
+  background: var(--white); padding: 2.5rem 2rem;
+  border-top: 4px solid var(--gold);
+  box-shadow: 0 4px 24px rgba(58,42,40,.07);
+  transition: transform .3s, box-shadow .3s;
+  position: relative; overflow: hidden;
+}
+.service-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--crimson), var(--teal));
+  opacity: 0; transition: opacity .4s; pointer-events: none;
+}
+.service-card:hover { transform: translateY(-7px); box-shadow: 0 16px 40px rgba(58,42,40,.13); }
+.service-card:hover::after { opacity: .04; }
+.service-card .s-icon { margin-bottom: 1rem; }
+.service-card h3 { font-family: 'Playfair Display', serif; font-size: 1.22rem; margin-bottom: .6rem; }
+.service-card p { font-size: .9rem; color: #666; line-height: 1.75; }
+.service-card .note { margin-top: .7rem; font-size: .78rem; color: #aaa; }
+.service-price {
+  display: inline-block; margin-top: 1.3rem;
+  background: var(--gold); color: var(--bark);
+  padding: .3rem 1rem; font-weight: 700; font-size: .85rem; letter-spacing: .04em;
+}
+
+/* =========================================================
+   RANDONNÉE — GALLERY
+   ========================================================= */
+#randonnee { background: var(--bark); color: var(--white); }
+#randonnee .section-title   { color: var(--white); }
+#randonnee .section-subtitle { color: rgba(255,255,255,.65); }
+#randonnee .section-label   { color: var(--gold); }
+#randonnee .section-label::before,
+#randonnee .section-label::after { background: var(--gold); }
+
+.rando-note {
+  font-size: .8rem; color: rgba(255,255,255,.45);
+  margin-top: .5rem; font-style: italic;
+}
+.price-badge {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--gold); color: var(--bark);
+  padding: .55rem 1.5rem; font-weight: 700; font-size: .95rem;
+  margin-top: 1.5rem; letter-spacing: .04em;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .75rem;
+  margin-top: 2.5rem;
+}
+.gallery-item {
+  position: relative; overflow: hidden; cursor: pointer;
+  aspect-ratio: 1;
+}
+.gallery-item:first-child { grid-column: 1 / 3; grid-row: 1 / 3; aspect-ratio: auto; }
+.gallery-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .5s ease, filter .4s;
+  filter: brightness(.88);
+}
+.gallery-item:hover img { transform: scale(1.09); filter: brightness(1.05); }
+.gallery-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(58,42,40,.8) 0%, transparent 55%);
+  opacity: 0; transition: opacity .4s;
+  display: flex; align-items: flex-end; padding: 1rem 1.1rem;
+  color: var(--white); font-size: .82rem; letter-spacing: .05em;
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+
+/* =========================================================
+   DÉJEUNER
+   ========================================================= */
+#dejeuner { background: var(--off); }
+.dejeuner-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: start; margin-top: 3rem;
+}
+.food-gallery {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem;
+}
+.food-item { overflow: hidden; aspect-ratio: 1; }
+.food-item.wide { grid-column: 1 / 4; aspect-ratio: 16 / 6; }
+.food-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .5s;
+}
+.food-item:hover img { transform: scale(1.08); }
+
+.menu-card {
+  background: var(--white); padding: 2.6rem;
+  border-left: 5px solid var(--teal);
+  box-shadow: 0 4px 24px rgba(58,42,40,.08);
+}
+.menu-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem; color: var(--teal); margin-bottom: 1.6rem;
+}
+.menu-line {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .9rem 0; border-bottom: 1px dashed rgba(58,42,40,.13);
+  font-size: .95rem;
+}
+.menu-line:last-of-type { border-bottom: none; }
+.menu-line .lname { display: flex; align-items: center; gap: .6rem; }
+.menu-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+.menu-note {
+  font-size: .8rem; color: #999; font-style: italic;
+  margin-top: 1rem; line-height: 1.6;
+}
+.menu-total {
+  margin-top: 1.6rem; padding: 1rem 1.3rem;
+  background: var(--teal); color: var(--white);
+  display: flex; justify-content: space-between; align-items: center;
+  font-weight: 700; font-size: 1.1rem;
+}
+
+/* =========================================================
+   TREK MULETIER
+   ========================================================= */
+#muletier { background: var(--sand); }
+
+.muletier-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4.5rem; align-items: center; margin-top: 3rem;
+}
+.muletier-img { position: relative; }
+.muletier-img img {
+  width: 100%; aspect-ratio: 4/3; object-fit: cover;
+}
+.muletier-img::after {
+  content: ''; position: absolute;
+  top: 1.5rem; left: 1.5rem; right: -1.5rem; bottom: -1.5rem;
+  border: 3px solid var(--gold); z-index: -1;
+}
+.muletier-text .section-label { justify-content: flex-start; }
+.muletier-text .section-label::before { display: none; }
+.highlight-box {
+  background: var(--bark); color: var(--white);
+  padding: 1.6rem; margin-top: 2rem;
+  font-size: .9rem; line-height: 1.8;
+}
+.highlight-box strong { color: var(--gold); }
+
+/* =========================================================
+   COURS DE CUISINE
+   ========================================================= */
+#cuisine {
+  background: var(--crimson); color: var(--white);
+  position: relative; overflow: hidden;
+}
+.cuisine-bg {
+  position: absolute; inset: 0;
+  background: url('30.png') center/cover no-repeat;
+  opacity: .12;
+  pointer-events: none;
+}
+#cuisine .section-title   { color: var(--white); }
+#cuisine .section-subtitle { color: rgba(255,255,255,.7); }
+#cuisine .section-label   { color: var(--gold); }
+#cuisine .section-label::before,
+#cuisine .section-label::after { background: var(--gold); }
+
+.cuisine-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4.5rem; align-items: center; margin-top: 3rem;
+  position: relative;
+}
+.cuisine-img img {
+  width: 100%; aspect-ratio: 4/3; object-fit: cover;
+  box-shadow: 0 16px 48px rgba(0,0,0,.35);
+}
+.cuisine-text .section-label { justify-content: flex-start; }
+.cuisine-text .section-label::before { display: none; }
+
+.cuisine-steps { display: flex; flex-direction: column; gap: 1.4rem; margin-top: 2rem; }
+.step {
+  display: flex; gap: 1.3rem; align-items: flex-start;
+  background: rgba(255,255,255,.07); padding: 1.2rem;
+  border-left: 3px solid var(--gold);
+}
+.step-num { font-family: 'Cinzel', serif; font-size: 1.8rem; color: var(--gold); flex-shrink: 0; line-height: 1; }
+.step h4 { font-family: 'Playfair Display', serif; margin-bottom: .3rem; }
+.step p { font-size: .88rem; opacity: .75; line-height: 1.65; }
+.price-badge-dark {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--gold); color: var(--bark);
+  padding: .55rem 1.5rem; font-weight: 700; font-size: .95rem;
+  margin-top: 2rem; letter-spacing: .04em;
+}
+
+/* =========================================================
+   LOCATION / CONTACT
+   ========================================================= */
+#location { background: var(--white); }
+.location-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: center; margin-top: 3rem;
+}
+.location-info { display: flex; flex-direction: column; gap: 1.6rem; }
+.info-row { display: flex; gap: 1rem; align-items: flex-start; }
+.info-icon { flex-shrink: 0; }
+.info-row h4 { font-family: 'Playfair Display', serif; margin-bottom: .25rem; }
+.info-row p  { font-size: .92rem; color: #666; line-height: 1.65; }
+.info-row a  { font-size: .92rem; color: #666; text-decoration: none; }
+.info-row a:hover { color: var(--teal); }
+.w3w-tag {
+  display: inline-flex; align-items: center; gap: .45rem;
+  background: var(--teal); color: var(--white);
+  padding: .35rem 1rem; font-size: .78rem; font-weight: 700;
+  letter-spacing: .05em; margin-top: .45rem;
+}
+.map-frame { aspect-ratio: 4/3; border: 2px solid var(--gold); overflow: hidden; }
+.map-frame iframe { width: 100%; height: 100%; border: none; display: block; }
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+footer { background: var(--bark); color: rgba(255,255,255,.78); padding: 4rem 5% 2rem; }
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem; margin-bottom: 3rem;
+}
+.footer-brand p {
+  font-size: .88rem; line-height: 1.82;
+  max-width: 290px; margin: 1rem 0 1.5rem;
+}
+.footer-badge {
+  width: 52px; height: 52px; background: var(--crimson);
+  clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  display: flex; align-items: center; justify-content: center;
+}
+.footer-badge span {
+  color: var(--gold); font-family: 'Cinzel', serif;
+  font-size: .58rem; font-weight: 700; text-align: center; line-height: 1.2;
+}
+.socials {
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.social-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-btn svg {
+    width: 22px;
+    height: 22px;
+    stroke: #333;
+    transition: all 0.3s ease;
+}
+
+.social-btn:hover {
+    transform: translateY(-3px);
+}
+
+.social-btn[title="Instagram"]:hover svg {
+    stroke: #E4405F;
+}
+
+.social-btn[title="Facebook"]:hover svg {
+    stroke: #1877F2;
+}
+
+.social-btn[title="Email"]:hover svg {
+    stroke: #EA4335;
+}
+
+.social-btn[title="Instagram"]:hover {
+    background: rgba(228, 64, 95, 0.1);
+}
+
+.social-btn[title="Facebook"]:hover {
+    background: rgba(24, 119, 242, 0.1);
+}
+
+.social-btn[title="Email"]:hover {
+    background: rgba(234, 67, 53, 0.1);
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .65rem; }
+.footer-col ul li a {
+  color: rgba(255,255,255,.6); text-decoration: none;
+  font-size: .88rem; transition: color .3s;
+}
+.footer-col ul li a:hover { color: var(--gold); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.1); padding-top: 1.6rem;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: .78rem; opacity: .5;
+}
+
+/* =========================================================
+   SCROLL REVEAL
+   ========================================================= */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* =========================================================
+   LIGHTBOX
+   ========================================================= */
+.lightbox {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.95); z-index: 1000;
+  align-items: center; justify-content: center; padding: 2rem;
+}
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 90vw; max-height: 88vh; object-fit: contain; }
+.lb-close {
+  position: absolute; top: 1.4rem; right: 2rem;
+  background: none; border: none; color: var(--white);
+  font-size: 2.2rem; cursor: pointer; line-height: 1; transition: color .2s;
+}
+.lb-close:hover { color: var(--gold); }
+.lb-prev, .lb-next {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,.1); border: none; color: var(--white);
+  font-size: 1.8rem; cursor: pointer; padding: .8rem 1rem;
+  transition: background .2s;
+}
+.lb-prev:hover, .lb-next:hover { background: var(--gold); color: var(--bark); }
+.lb-prev { left: 1rem; }
+.lb-next { right: 1rem; }
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 1024px) {
+  .about-grid     { gap: 3rem; }
+  .dejeuner-grid  { gap: 2.5rem; }
+  .muletier-inner { gap: 3rem; }
+  .cuisine-inner  { gap: 3rem; }
+  .location-grid  { gap: 3rem; }
+}
+
+@media (max-width: 900px) {
+  .about-grid,
+  .dejeuner-grid,
+  .muletier-inner,
+  .cuisine-inner,
+  .location-grid  { grid-template-columns: 1fr; }
+
+  .about-img-badge { right: 0; }
+  .muletier-img::after { display: none; }
+
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-item:first-child { grid-column: 1 / 3; }
+
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-brand { grid-column: 1 / 3; }
+}
+
+@media (max-width: 640px) {
+  section { padding: 4rem 5%; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+
+  .gallery-grid { grid-template-columns: 1fr 1fr; gap: .5rem; }
+  .gallery-item:first-child { grid-column: 1 / 3; }
+
+  .food-gallery { grid-template-columns: 1fr 1fr; }
+  .food-item.wide { grid-column: 1 / 3; }
+
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-brand { grid-column: 1; }
+  .footer-bottom { flex-direction: column; gap: .5rem; text-align: center; }
+
+  .services-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAVBAR ===================== -->
+<nav id="navbar">
+  <a class="nav-logo" href="#hero">
+    <img src="logo.png" alt="">
+    <span class="nav-brand">Berka Lodge</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#randonnee">Randonnée</a></li>
+    <li><a href="#dejeuner">Déjeuner</a></li>
+    <li><a href="#muletier">Muletier</a></li>
+    <li><a href="#cuisine">Cuisine</a></li>
+    <li><a href="#location">Contact</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose">✕</button>
+  <a href="#about"     onclick="closeMobile()">À propos</a>
+  <a href="#services"  onclick="closeMobile()">Services</a>
+  <a href="#randonnee" onclick="closeMobile()">Randonnée</a>
+  <a href="#dejeuner"  onclick="closeMobile()">Déjeuner</a>
+  <a href="#muletier"  onclick="closeMobile()">Muletier</a>
+  <a href="#cuisine"   onclick="closeMobile()">Cuisine</a>
+  <a href="#location"  onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Setti Fatma · Vallée de l'Ourika · Haut Atlas</div>
+    <h1 class="hero-title">Explorez le<br><em>Haut Atlas</em></h1>
+    <p class="hero-sub">
+      C'est à vous couper le souffle — randonnées guidées, repas berbères authentiques
+      et treks muletiers au cœur des montagnes du Maroc.
+    </p>
+    <div class="hero-cta">
+      <a href="#services" class="btn-primary">Découvrir nos activités</a>
+      <a href="#location"  class="btn-outline">Nous contacter</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Défiler</div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section id="about">
+  <div class="about-bg-img" id="aboutBgImg"></div>
+
+  <div class="about-grid reveal">
+    <div class="about-img-stack">
+      <img class="about-img-main"
+           src="40.png"
+           alt="Un monde à part – Haut Atlas"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1593164842264-854604db2260?w=800&q=80'">
+      <div class="about-img-badge">
+        <strong>Haut</strong><span>Atlas<br>Maroc</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="section-label">Notre histoire</div>
+      <h2 class="section-title">Un monde à part,<br>loin des foules</h2>
+      <p class="section-subtitle">
+        Échappez à l'animation des souks et découvrez la beauté naturelle du Haut Atlas.
+        Votre aventure commence à Setti Fatma. Hors des sentiers battus, on passera par
+        des villages où les gens du pays vivent en harmonie avec la nature et les visiteurs
+        sont accueillis à bras ouverts.
+      </p>
+      <div class="about-features">
+        <div class="feat-item">
+          <div class="feat-icon">
+            <svg class="icon icon-mountain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 20 L12 4 L20 20 Z M8 14 L16 14"/>
+              <circle cx="12" cy="18" r="2"/>
+            </svg>
+          </div>
+          <div>
+            <h4>Paysages à couper le souffle</h4>
+            <p>Vues panoramiques sur les sommets enneigés du Haut Atlas depuis notre terrasse sur le toit, entourés de vergers luxuriants.</p>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">
+            <svg class="icon icon-hospitality" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21 L20 15 C20 12 18 10 15 10 L9 10 C6 10 4 12 4 15 L4 21"/>
+              <circle cx="12" cy="7" r="3"/>
+              <path d="M8 21 L16 21"/>
+            </svg>
+          </div>
+          <div>
+            <h4>Hospitalité berbère authentique</h4>
+            <p>Un accueil chaleureux vous attend à Berka Lodge. Nos randonnées sont adaptées à tous, des familles aux randonneurs hardis.</p>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">
+            <svg class="icon icon-car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9 L12 3 L21 9 L12 15 Z"/>
+              <path d="M5 12 L5 19 L12 23 L19 19 L19 12"/>
+              <path d="M12 15 L12 23"/>
+              <path d="M9 10 L12 12 L15 10"/>
+            </svg>
+          </div>
+          <div>
+            <h4>À 1h30 de Marrakech</h4>
+            <p>DR Ait Berka, Setti Fatma, Vallée de l'Ourika. Parking sécurisé disponible. Berka Lodge à 3km de Setti Fatma.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SERVICES ===================== -->
+<section id="services">
+  <div class="services-intro text-center reveal">
+    <div class="section-label">Ce que nous offrons</div>
+    <h2 class="section-title">Des itinéraires sur mesure</h2>
+    <p class="section-subtitle">
+      C'est votre voyage. Nos activités sont adaptées à tous — familles, randonneurs,
+      amoureux de la gastronomie et aventuriers.
+    </p>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="s-icon">
+        <svg class="icon-lg icon-hiking" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 3 L12 8 M12 8 L15 5 M12 8 L9 5"/>
+          <path d="M5 12 L8 12 M8 12 L7 15 M8 12 L11 13"/>
+          <path d="M19 12 L16 12 M16 12 L17 15 M16 12 L13 13"/>
+          <path d="M12 21 L12 16 M12 16 L9 19 M12 16 L15 19"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </div>
+      <h3>Randonnée / La marche</h3>
+      <p>Partez à la conquête des sentiers du Haut Atlas avec un guide local expérimenté. Profitez de vues dans toutes directions, découvrez la faune et apprenez sur la vie en montagne.</p>
+      <p class="note">Max 12 personnes · 2ème guide obligatoire au-delà</p>
+      <span class="service-price">400 DH / personne</span>
+    </div>
+    <div class="service-card">
+      <div class="s-icon">
+        <svg class="icon-lg icon-lunch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M4 12 L20 12 M4 8 L20 8 M8 20 L16 20 M12 4 L12 8 M12 20 L12 16"/>
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+        </svg>
+      </div>
+      <h3>Déjeuner Berbère</h3>
+      <p>Dégustez un authentique déjeuner berbère délicieux en vous relaxant à la terrasse sur le toit, donnant sur une rivière et entouré de vergers luxuriants.</p>
+      <span class="service-price">150 DH / personne</span>
+    </div>
+    <div class="service-card">
+      <div class="s-icon">
+        <svg class="icon-lg icon-mule" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 18 L6 12 L9 12 L9 18 L12 18 L12 12 L15 12 L15 18 L18 18 L18 12"/>
+          <rect x="2" y="6" width="20" height="12" rx="1"/>
+          <circle cx="7" cy="9" r="1"/>
+          <circle cx="12" cy="9" r="1"/>
+          <circle cx="17" cy="9" r="1"/>
+        </svg>
+      </div>
+      <h3>Randonnées Muletières</h3>
+      <p>Là où les voitures ne peuvent pas aller, un âne se débrouille facilement! Un trek inoubliable avec ces compagnons indispensables à la vie berbère d'aujourd'hui.</p>
+      <span class="service-price">200 DH / personne</span>
+    </div>
+    <div class="service-card">
+      <div class="s-icon">
+        <svg class="icon-lg icon-cooking" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M8 6 L16 6 M12 6 L12 12 M12 12 L9 10 M12 12 L15 10"/>
+          <path d="M4 14 L20 14 L18 20 L6 20 Z"/>
+          <path d="M8 18 L16 18"/>
+        </svg>
+      </div>
+      <h3>Cours de Cuisine</h3>
+      <p>Apprenez à préparer le plat le plus célèbre du Maroc — un tajine savoureux! Recettes transmises à travers les générations. Vous repartez avec les secrets berbères.</p>
+      <span class="service-price">250 DH / personne</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RANDONNÉE ===================== -->
+<section id="randonnee">
+  <div class="rando-header reveal">
+    <div class="section-label" style="justify-content:flex-start;">Activité phare</div>
+    <h2 class="section-title">Randonnée / La marche</h2>
+    <p class="section-subtitle">
+      N'importe combien de temps vous voulez passer en montagne, il y a plein de routes
+      à explorer — toujours à votre rythme, guidé par un expert local expérimenté.
+      Profitez de vues à vous couper le souffle, découvrez la faune et apprenez sur
+      l'environnement et la vie en montagne.
+    </p>
+    <p class="rando-note">⚠️ Pour des raisons de sécurité, les groupes de plus de 12 personnes doivent être accompagnés d'un deuxième guide.</p>
+    <div class="price-badge">
+      <svg class="icon-sm icon-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 3 L12 8 M12 8 L15 5 M12 8 L9 5"/>
+        <circle cx="12" cy="12" r="3"/>
+      </svg>
+      400 DH par personne <span style="font-size:.75rem;opacity:.7;font-weight:400;margin-left:.3rem">· guide inclus</span>
+    </div>
+  </div>
+
+  <div class="gallery-grid reveal" id="randoGallery">
+    <div class="gallery-item" onclick="openLightbox(0)">
+      <img src="1.png" alt="Randonnée Atlas 1" loading="lazy"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1501854140801-50d01698950b?w=900&q=80'">
+      <div class="gallery-overlay">Sentiers du Haut Atlas</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(1)">
+      <img src="2.png" alt="Randonnée Atlas 2" loading="lazy"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=700&q=80'">
+      <div class="gallery-overlay">Panorama montagne</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(2)">
+      <img src="3.png" alt="Randonnée Atlas 3" loading="lazy"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=700&q=80'">
+      <div class="gallery-overlay">Rivière Ourika</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(3)">
+      <img src="4.png" alt="Randonnée Atlas 4" loading="lazy"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=700&q=80'">
+      <div class="gallery-overlay">Sommets enneigés</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(4)">
+      <img src="5.png" alt="Randonnée Atlas 5" loading="lazy"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1551632811-561732d1e306?w=700&q=80'">
+      <div class="gallery-overlay">Guide local expérimenté</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(5)">
+      <img src="6.png" alt="Randonnée Atlas 6" loading="lazy"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1439405326854-014607f694d7?w=700&q=80'">
+      <div class="gallery-overlay">Faune &amp; flore</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(6)">
+      <img src="7.png" alt="Randonnée Atlas 7" loading="lazy"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=700&q=80'">
+      <div class="gallery-overlay">Villages berbères</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(7)">
+      <img src="8.png" alt="Randonnée Atlas 8" loading="lazy"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=700&q=80'">
+      <div class="gallery-overlay">Coucher de soleil</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DÉJEUNER ===================== -->
+<section id="dejeuner">
+  <div class="reveal">
+    <div class="section-label" style="justify-content:flex-start;">Pause gourmande</div>
+    <h2 class="section-title">Déjeuner Berbère</h2>
+    <p class="section-subtitle">
+      Moment de repos après la randonnée avec vue sur les montagnes Atlas.
+      Entouré de vergers luxuriants et donnant sur une rivière, vous serez baigné
+      dans la beauté des montagnes et l'hospitalité chaleureuse du peuple berbère.
+    </p>
+  </div>
+  <div class="dejeuner-grid reveal">
+    <div>
+      <div class="food-gallery">
+        <div class="food-item wide">
+          <img src="9.png" alt="Terrasse vue montagne Berka Lodge" loading="lazy"
+               onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1599084993091-1cb5c0721cc6?w=900&q=80'">
+        </div>
+        <div class="food-item">
+          <img src="10.png" alt="Salade marocaine" loading="lazy"
+               onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?w=500&q=80'">
+        </div>
+        <div class="food-item">
+          <img src="11.png" alt="Tajine berbère" loading="lazy"
+               onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1541518763669-27fef04b14ea?w=500&q=80'">
+        </div>
+        <div class="food-item">
+          <img src="12.png" alt="Couscous marocain" loading="lazy"
+               onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1544510808-91bc1af29e91?w=500&q=80'">
+        </div>
+        <div class="food-item">
+          <img src="13.png" alt="Dessert marocain" loading="lazy"
+               onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=80'">
+        </div>
+        <div class="food-item">
+          <img src="14.png" alt="Thé à la menthe" loading="lazy"
+               onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1544145945-f90425340c7e?w=500&q=80'">
+        </div>
+        <div class="food-item">
+          <img src="15.png" alt="Repas traditionnel berbère" loading="lazy"
+               onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&q=80'">
+        </div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <h3>Notre Menu Berbère</h3>
+      <div class="menu-line">
+        <div class="lname"><div class="menu-dot"></div>Salade marocaine</div>
+        <span>🥗</span>
+      </div>
+      <div class="menu-line">
+        <div class="lname"><div class="menu-dot"></div>Tajine ou Couscous</div>
+        <span>🍲</span>
+      </div>
+      <div class="menu-line">
+        <div class="lname"><div class="menu-dot"></div>Dessert du jour</div>
+        <span>🍯</span>
+      </div>
+      <div class="menu-line">
+        <div class="lname"><div class="menu-dot"></div>Boisson (thé à la menthe / eau)</div>
+        <span>🍵</span>
+      </div>
+      <p class="menu-note">
+        ✨ Servi sur notre terrasse sur le toit avec vue panoramique sur
+        les montagnes Atlas et la rivière Ourika.
+      </p>
+      <div class="menu-total">
+        <span>Prix par personne</span>
+        <span>200 DH</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TREK MULETIER ===================== -->
+<section id="muletier">
+  <div class="muletier-inner">
+    <div class="muletier-img reveal">
+      <img src="20.png"
+           alt="Randonnées Muletières Haut Atlas"
+           loading="lazy"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&q=80'">
+    </div>
+    <div class="muletier-text reveal">
+      <div class="section-label">Une expérience unique</div>
+      <h2 class="section-title">Randonnées Muletières</h2>
+      <p class="section-subtitle">
+        Là où les voitures ne peuvent pas aller, rassurez-vous qu'un âne se débrouille
+        facilement! Loin d'être considéré "bête de charge", ces ânes sont chéris par
+        leur maître.
+      </p>
+      <div class="highlight-box">
+        <strong>Pourquoi un trek à dos d'âne ?</strong><br><br>
+        Nos treks muletiers sont géniaux et l'occasion d'apprendre pourquoi cette bête
+        aux pieds sûrs est tellement <strong>indispensable à la vie berbère</strong>,
+        même aujourd'hui. Une aventure que petits et grands n'oublieront jamais.
+      </div>
+      <div class="price-badge" style="margin-top:2rem;">
+        <svg class="icon-sm icon-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="6" width="20" height="12" rx="1"/>
+          <path d="M6 18 L6 12 L9 12 L9 18 L12 18 L12 12 L15 12 L15 18 L18 18 L18 12"/>
+        </svg>
+        200 DH par personne
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COURS DE CUISINE ===================== -->
+<section id="cuisine">
+  <div class="cuisine-bg"></div>
+
+  <div class="cuisine-inner">
+    <div class="cuisine-img reveal">
+      <img src="30.png"
+           alt="Cours de cuisine tajine Berka Lodge"
+           loading="lazy"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80'">
+    </div>
+    <div class="cuisine-text reveal">
+      <div class="section-label">Savoir-faire ancestral</div>
+      <h2 class="section-title">Cours de Cuisine</h2>
+      <p class="section-subtitle">
+        Apprenez comment préparer le plat le plus célèbre et traditionnel du Maroc —
+        un tajine savoureux! Vous rentrerez avec des astuces de cuisine berbère
+        transmises à travers les générations.
+      </p>
+      <div class="cuisine-steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div>
+            <h4>Sélection des épices</h4>
+            <p>Découvrez les épices emblématiques du Maroc et leurs propriétés culinaires traditionnelles.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div>
+            <h4>Préparation du tajine</h4>
+            <p>Préparez votre propre tajine selon les recettes authentiques transmises de génération en génération.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div>
+            <h4>Dégustation &amp; secrets</h4>
+            <p>Savourez votre chef-d'œuvre et repartez avec les secrets de la cuisine berbère.</p>
+          </div>
+        </div>
+      </div>
+      <div class="price-badge-dark">
+        <svg class="icon-sm icon-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M8 6 L16 6 M12 6 L12 12 M12 12 L9 10 M12 12 L15 10"/>
+          <path d="M4 14 L20 14 L18 20 L6 20 Z"/>
+        </svg>
+        300 DH par personne
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LOCATION / CONTACT ===================== -->
+<section id="location">
+  <div class="text-center reveal">
+    <div class="section-label">Nous trouver</div>
+    <h2 class="section-title">Où nous sommes</h2>
+    <p class="section-subtitle">
+      À seulement une heure et demie en voiture de Marrakech (parking en sécurité disponible),
+      au cœur de la magnifique Vallée de l'Ourika.
+    </p>
+  </div>
+  <div class="location-grid reveal">
+    <div class="location-info">
+      <div class="info-row">
+        <div class="info-icon">
+          <svg class="icon icon-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2 L12 6 M12 12 L12 16 M4 4 L8 8 M16 16 L20 20 M4 20 L8 16 M16 8 L20 4"/>
+            <circle cx="12" cy="12" r="4"/>
+          </svg>
+        </div>
+        <div>
+          <h4>Adresse</h4>
+          <p>DR Ait Berka, Setti Fatma<br>Ourika Valley, Marrakech, Maroc</p>
+          <div class="w3w-tag">///smock.persons.afford</div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">
+          <svg class="icon icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+            <line x1="12" y1="18" x2="12" y2="18" stroke-width="2"/>
+          </svg>
+        </div>
+        <div>
+          <h4>Téléphone</h4>
+          <a href="tel:+212605168872">+212 (0) 60 516 88 72</a>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">
+          <svg class="icon icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M22 7 L12 13 L2 7"/>
+          </svg>
+        </div>
+        <div>
+          <h4>Email</h4>
+          <a href="mailto:hello@berkalodge.ma">contact@highatlastrip.com</a>
+        </div>
+      </div>
+     
+      <div class="info-row">
+        <div class="info-icon">
+          <svg class="icon icon-car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 9 L12 3 L21 9 L12 15 Z"/>
+            <path d="M5 12 L5 19 L12 23 L19 19 L19 12"/>
+            <path d="M12 15 L12 23"/>
+          </svg>
+        </div>
+        <div>
+          <h4>Comment y arriver</h4>
+          <p>1h30 de Marrakech par la route de l'Ourika. Berka Lodge se trouve à 3km de plus par un chemin de terre battue depuis Setti Fatma.</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">
+          <svg class="icon icon-instagram" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </div>
+        <div>
+          <h4>Suivez nos aventures</h4>
+          <a href="https://instagram.com/berka_lodge" target="_blank" rel="noopener"
+             style="color:var(--teal);font-weight:700;font-size:1rem;">@berka_lodge</a>
+        </div>
+      </div>
+    </div>
+    <div class="map-frame">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3411.581204439433!2d-7.658846174441402!3d31.2323301743472!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdbaaf00358dbc05%3A0x8f685e56ba5e3f1f!2sBerka%20lodge!5e0!3m2!1sfr!2sma!4v1774714841632!5m2!1sfr!2sma"
+        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        title="Carte Berka Lodge Setti Fatma">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+     
+      <p>
+        Explorez le Haut Atlas depuis Setti Fatma. Randonnées guidées, cuisine berbère
+        authentique et treks muletiers — une expérience inoubliable au cœur du Maroc.
+      </p>
+     <div class="socials">
+    <a class="social-btn" href="https://instagram.com/berka_lodge" target="_blank" rel="noopener" title="Instagram">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="2" width="20" height="20" rx="4" ry="4"/>
+            <circle cx="12" cy="12" r="4"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+    </a>
+    <a class="social-btn" href="https://facebook.com/Berka Lodge" target="_blank" rel="noopener" title="Facebook">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+        </svg>
+    </a>
+    <a class="social-btn" href="mailto:hello@berkalodge.ma" title="Email">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M22 7 L12 13 L2 7"/>
+        </svg>
+    </a>
+</div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#services">Nos services</a></li>
+        <li><a href="#randonnee">Randonnée</a></li>
+        <li><a href="#dejeuner">Déjeuner</a></li>
+        <li><a href="#muletier">Trek muletier</a></li>
+        <li><a href="#cuisine">Cours de cuisine</a></li>
+        <li><a href="#location">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+212605168872">+212 (0) 60 516 88 72</a></li>
+        <li><a>DR Ait Berka, Setti Fatma</a></li>
+        <li><a>Ourika Valley, Marrakech</a></li>
+        <li><a>///smock.persons.afford</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Berka Lodge · Setti Fatma, Maroc</span>
+    <span>Conçu avec ❤️ pour le Haut Atlas</span>
+  </div>
+</footer>
+
+<!-- ===================== LIGHTBOX ===================== -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <button class="lb-prev"  onclick="shiftLightbox(-1)">&#8249;</button>
+  <img id="lbImg" src="" alt="Photo Berka Lodge">
+  <button class="lb-next"  onclick="shiftLightbox(1)">&#8250;</button>
+</div>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+/* ---- NAV scroll ---- */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* ---- Hamburger / mobile menu ---- */
+const ham        = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileClose = document.getElementById('mobileClose');
+ham.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+mobileClose.addEventListener('click', closeMobile);
+function closeMobile() { mobileMenu.classList.remove('open'); }
+
+/* ---- Scroll reveal ---- */
+const revealEls = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+revealEls.forEach(el => revealObs.observe(el));
+
+/* ---- Lightbox ---- */
+let lbImages = [];
+let lbIndex  = 0;
+const lbEl   = document.getElementById('lightbox');
+const lbImg  = document.getElementById('lbImg');
+
+const randoImgs = [...document.querySelectorAll('#randoGallery .gallery-item img')];
+
+function openLightbox(idx) {
+  lbImages = randoImgs;
+  lbIndex  = idx;
+  lbImg.src = lbImages[lbIndex].src;
+  lbEl.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lbEl.classList.remove('open');
+  document.body.style.overflow = '';
+  lbImg.src = '';
+}
+function shiftLightbox(dir) {
+  lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+  lbImg.src = lbImages[lbIndex].src;
+}
+
+lbEl.addEventListener('click', (e) => { if (e.target === lbEl) closeLightbox(); });
+
+document.addEventListener('keydown', (e) => {
+  if (!lbEl.classList.contains('open')) return;
+  if (e.key === 'Escape')     closeLightbox();
+  if (e.key === 'ArrowRight') shiftLightbox(1);
+  if (e.key === 'ArrowLeft')  shiftLightbox(-1);
+});
+</script>
+</body>
+</html>
